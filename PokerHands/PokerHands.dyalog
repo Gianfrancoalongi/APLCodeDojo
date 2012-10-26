@@ -18,7 +18,7 @@
 ∇
         
 ∇ Z ← SameColor VecHand
-        Z ← 1 = ⍴ ∪ 1∘↓ ¨ VecHand
+        Z ← 1 = ⍴ ∪ 2∘⌷ ¨ VecHand
 ∇
 
 ∇ Z ← Ladder VecHand;SortIndices;Sorted;Values;SortSubtract;First;Rest
@@ -27,7 +27,7 @@
         Values ← 1∘⌷ ¨ Sorted
         SortSubtract ← | ¨ Values - (¯1⌽Values)
         First ← SortSubtract[1]
-        Rest ← ∪ 1 ↓ SortSubtract
+        Rest ← ⊃ ×/ 1 ↓ SortSubtract
         Z ← First = ¯1 + (⍴ SortSubtract) ∧ 1=Rest
 ∇
 
@@ -70,11 +70,13 @@
         Z ← Z, 1 = Ladder ((3 2) (2 2) (1 2))
         Z ← Z, 0 = Ladder ((1 2) (2 2) (4 2))
         Z ← Z, 0 = Ladder ((1 1) (2 2) (4 3))
+        Z ← Z, 0 = Ladder ((2 3) (3 3) (5 3) (8 3) (10 3))
         Z ← Z, 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
         Z ← Z, 1 = 3 SameValue ((1 2) (1 3) (1 4) (2 3))
         Z ← Z, 0 = 3 SameValue ((1 2) (2 3) (1 4) (2 3))
         Z ← Z, 0 = 3 SameValue ((1 2) (1 3) (1 4) (1 3))
         Z ← Z, 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ← Z, 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
+        Z ← Z, 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
 ∇
 :EndNameSpace
