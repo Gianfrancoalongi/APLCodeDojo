@@ -6,11 +6,12 @@
         
 ∇ Z ← Score Hand;VecHand;SortIndices;Suites;Sorted;SortedValues
         VecHand ← Card2Vec ¨ Hand
-        ⍝ Check for Straight Flush
         :If Ladder VecHand ∧ SameColor VecHand
-                Z ← 'Straight Flush'
+                Z ← 'Straight Flush'               
         :ElseIf 4 SameValue VecHand 
                 Z ← 'Four of a kind'
+        :ElseIf 2 SameValue VecHand ∧ 3 SameValue VecHand
+                Z ← 'Full House'
         :Else
                 Z ← 0
         :EndIf
@@ -74,5 +75,6 @@
         Z ← Z, 0 = 3 SameValue ((1 2) (2 3) (1 4) (2 3))
         Z ← Z, 0 = 3 SameValue ((1 2) (1 3) (1 4) (1 3))
         Z ← Z, 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
+        Z ← Z, 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
 ∇
 :EndNameSpace
