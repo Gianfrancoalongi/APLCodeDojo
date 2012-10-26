@@ -14,6 +14,8 @@
                 Z ← 'Full House'
         :ElseIf SameColor VecHand
                 Z ← 'Straight'
+        :ElseIf 3 SameValue VecHand
+                Z ← 'Three of a kind'
         :Else
                 Z ← 0
         :EndIf
@@ -80,5 +82,6 @@
         Z ← Z, 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ← Z, 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
         Z ← Z, 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
+        Z ← Z, 'Three of a kind' ≡ Score '2H' '2C' '2D' '3S' '1D'
 ∇
 :EndNameSpace
