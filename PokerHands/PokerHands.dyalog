@@ -12,6 +12,8 @@
                 Z ← 'Four of a kind'
         :ElseIf 2 SameValue VecHand ∧ 3 SameValue VecHand
                 Z ← 'Full House'
+        :ElseIf SameColor VecHand
+                Z ← 'Straight'
         :Else
                 Z ← 0
         :EndIf
