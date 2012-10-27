@@ -4,7 +4,7 @@
         Z ← (Score Black) Won (Score White)
 ∇
         
-∇ Z ← Score Hand;VecHand;SortIndices;Suites;Sorted;SortedValues
+∇ Z ← Score Hand;VecHand
         VecHand ← Card2Vec ¨ Hand
         :If Ladder VecHand ∧ SameColor VecHand
                 Z ← 'Straight Flush'               
@@ -29,10 +29,8 @@
         Z ← 1 = ⍴ ∪ 2∘⌷ ¨ VecHand
 ∇
 
-∇ Z ← Ladder VecHand;SortIndices;Sorted;Values;SortSubtract;First;Rest
-        SortIndices ← ⍋ 1∘⌷ ¨ VecHand
-        Sorted ← VecHand[SortIndices]
-        Values ← 1∘⌷ ¨ Sorted
+∇ Z ← Ladder VecHand;Values;SortSubtract;First;Rest
+        Values ← SortedValues VecHand
         SortSubtract ← | ¨ Values - (¯1⌽Values)
         First ← SortSubtract[1]
         Rest ← ⊃ ×/ 1 ↓ SortSubtract
@@ -55,13 +53,17 @@
         Z ← Amount = ⊃ +/ 2∘=∘⍴ ¨ Groups
 ∇
 
-∇ Z ← ValuesGrouped VecHand;SortIndices;Sorted;Values
-        SortIndices ← ⍋ 1∘⌷ ¨ VecHand
-        Sorted ← VecHand[SortIndices]
-        Values ← 1∘⌷ ¨ Sorted
+∇ Z ← ValuesGrouped VecHand
+        Values ← SortedValues VecHand
         ⎕ML ← 3
         Z ← Values ⊂ Values
-        ⎕ML ← 0        
+        ⎕ML ← 0
+∇
+
+∇ Z ← SortedValues VecHand;SortIndices;Sorted
+        SortIndices ← ⍋ 1∘⌷ ¨ VecHand
+        Sorted ← VecHand[SortIndices]
+        Z ← 1∘⌷ ¨ Sorted
 ∇
 
 ∇ Z ← ScoreBlack Won ScoreWhite
@@ -72,7 +74,6 @@
                 Z ←, 'Wins'
         :EndIf
 ∇
-
 
 ∇ Z ← Test
         Z ← ⍬
