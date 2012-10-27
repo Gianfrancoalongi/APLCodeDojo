@@ -51,6 +51,16 @@
         Z ← ⊃ ∨ / Amount∘=∘⍴ ¨ Groups         
 ∇
 
+∇ Z ← Amount Pairs VecHand;SortIndices;Sorted;Values;Groups
+        SortIndices ← ⍋ 1∘⌷ ¨ VecHand
+        Sorted ← VecHand[SortIndices]
+        Values ← 1∘⌷ ¨ Sorted
+        ⎕ML ← 3
+        Groups ← Values ⊂ Values
+        ⎕ML ← 0
+        Z ← Amount = ⊃ +/ 2∘=∘⍴ ¨ Groups
+∇
+
 ∇ Z ← ScoreBlack Won ScoreWhite
         :If ScoreBlack = ScoreWhite
                 Z ← 'Tie'
@@ -83,5 +93,6 @@
         Z ← Z, 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
         Z ← Z, 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         Z ← Z, 'Three of a kind' ≡ Score '2H' '2C' '2D' '3S' '1D'
+        Z ← Z, 1 = 2 Pairs ((1 2) (1 3) (2 2) (2 3))
 ∇
 :EndNameSpace
