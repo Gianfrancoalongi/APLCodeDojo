@@ -18,8 +18,8 @@
                 Z ← 'Three of a kind'
         :ElseIf 2 Pairs VecHand
                 Z ← 'Two pairs'
-        :Else                
-                Z ← 0
+        :ElseIf 1 Pairs VecHand
+                Z ← 'Pair'
         :EndIf
 ∇
         
@@ -98,5 +98,6 @@
         Z ← Z, 1 = 2 Pairs ((1 2) (1 3) (2 2) (2 3))
         Z ← Z, 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
         Z ← Z, 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
+        Z ← Z, 'Pair'≡ Score '2H' '2H' '3D' 'TC' 'KS'
 ∇
 :EndNameSpace
