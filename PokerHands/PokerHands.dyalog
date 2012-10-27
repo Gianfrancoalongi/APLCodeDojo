@@ -89,18 +89,18 @@
         Z ,← 0 = Ladder ((1 2) (2 2) (4 2))
         Z ,← 0 = Ladder ((1 1) (2 2) (4 3))
         Z ,← 0 = Ladder ((2 3) (3 3) (5 3) (8 3) (10 3))
-        Z ,← 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
         Z ,← 1 = 3 SameValue ((1 2) (1 3) (1 4) (2 3))
         Z ,← 0 = 3 SameValue ((1 2) (2 3) (1 4) (2 3))
         Z ,← 0 = 3 SameValue ((1 2) (1 3) (1 4) (1 3))
-        Z ,← 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
-        Z ,← 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
-        Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
-        Z ,← 'Three of a kind' ≡ Score '2H' '2C' '2D' '3S' '1D'
         Z ,← 1 = 2 Pairs ((1 2) (1 3) (2 2) (2 3))
         Z ,← 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
         Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
         Z ,← 'Pair'≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'High' ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
+        Z ,← 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
+        Z ,← 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
+        Z ,← 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
+        Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
+        Z ,← 'Three of a kind' ≡ Score '2H' '2C' '2D' '3S' '1D'
 ∇
 :EndNameSpace
