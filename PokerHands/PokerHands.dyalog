@@ -20,6 +20,8 @@
                 Z ← 'Two pairs'
         :ElseIf 1 Pairs VecHand
                 Z ← 'Pair'
+        :Else
+                Z ← 'High'
         :EndIf
 ∇
         
@@ -99,5 +101,6 @@
         Z ← Z, 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
         Z ← Z, 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
         Z ← Z, 'Pair'≡ Score '2H' '2H' '3D' 'TC' 'KS'
+        Z ← Z, 'High' ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
 ∇
 :EndNameSpace
