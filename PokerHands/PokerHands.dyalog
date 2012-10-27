@@ -45,24 +45,23 @@
         Z ← (Rank Suite)
 ∇
 
-∇ Z ← Amount SameValue VecHand;SortIndices;Sorted;Values;Groups
-        SortIndices ← ⍋ 1∘⌷ ¨ VecHand
-        Sorted ← VecHand[SortIndices]
-        Values ← 1∘⌷ ¨ Sorted
-        ⎕ML ← 3
-        Groups ← Values ⊂ Values
-        ⎕ML ← 0        
+∇ Z ← Amount SameValue VecHand;Groups
+        Groups ← ValuesGrouped VecHand
         Z ← ⊃ ∨ / Amount∘=∘⍴ ¨ Groups         
 ∇
 
-∇ Z ← Amount Pairs VecHand;SortIndices;Sorted;Values;Groups
+∇ Z ← Amount Pairs VecHand;Groups
+        Groups ← ValuesGrouped VecHand
+        Z ← Amount = ⊃ +/ 2∘=∘⍴ ¨ Groups
+∇
+
+∇ Z ← ValuesGrouped VecHand;SortIndices;Sorted;Values
         SortIndices ← ⍋ 1∘⌷ ¨ VecHand
         Sorted ← VecHand[SortIndices]
         Values ← 1∘⌷ ¨ Sorted
         ⎕ML ← 3
-        Groups ← Values ⊂ Values
-        ⎕ML ← 0
-        Z ← Amount = ⊃ +/ 2∘=∘⍴ ¨ Groups
+        Z ← Values ⊂ Values
+        ⎕ML ← 0        
 ∇
 
 ∇ Z ← ScoreBlack Won ScoreWhite
