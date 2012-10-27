@@ -94,5 +94,6 @@
         Z ← Z, 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         Z ← Z, 'Three of a kind' ≡ Score '2H' '2C' '2D' '3S' '1D'
         Z ← Z, 1 = 2 Pairs ((1 2) (1 3) (2 2) (2 3))
+        Z ← Z, 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
 ∇
 :EndNameSpace
