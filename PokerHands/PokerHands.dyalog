@@ -1,9 +1,5 @@
 :NameSpace Poker
         
-∇ Z ← Black RankHands White;SB;SW
-        Z ← (Score Black) Won (Score White)
-∇
-        
 ∇ Z ← Score Hand;VecHand;SC;SV;Ps;Arg
         VecHand ← Card2Vec ¨ Hand
         :If Ladder VecHand ∧ SameColor VecHand
@@ -64,15 +60,6 @@
         SortIndices ← ⍋ 1∘⌷ ¨ VecHand
         Sorted ← VecHand[SortIndices]
         Z ← 1∘⌷ ¨ Sorted
-∇
-
-∇ Z ← ScoreBlack Won ScoreWhite
-        :If ScoreBlack = ScoreWhite
-                Z ← 'Tie'
-        :Else
-                Z ← ('Black' 'White')[ (ScoreBlack 1) ⌈ (ScoreWhite 2)  ]
-                Z ←, 'Wins'
-        :EndIf
 ∇
 
 ∇ Z ← Test
