@@ -17,7 +17,7 @@
         :ElseIf 1 Pairs VecHand
                 Z ← 'Pair'
         :Else
-                Z ← 'High' (⌈/ 1∘⌷ ¨ VecHand)
+                Z ← 'High' (⌽ SortedValues VecHand)
         :EndIf
 ∇
         
@@ -81,7 +81,7 @@
         Z ,← 0 = 3 SameValue ((1 2) (1 3) (1 4) (1 3))
         Z ,← 1 = 2 Pairs ((1 2) (1 3) (2 2) (2 3))
         Z ,← 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
-        Z ,← ('High' 13) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
+        Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
         Z ,← 'Pair'≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
