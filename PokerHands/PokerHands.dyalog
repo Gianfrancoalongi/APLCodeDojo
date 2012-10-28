@@ -1,7 +1,8 @@
 :NameSpace Poker
         
-∇ Z ← Score Hand;VecHand;SC;SV;Ps;Arg
+∇ Z ← Score Hand;VecHand;P
         VecHand ← Card2Vec ¨ Hand
+        P ← AllPairs VecHand
         :If Ladder VecHand ∧ SameColor VecHand
                 Z ← 'Straight Flush'
         :ElseIf 4 SameValue VecHand 
@@ -14,8 +15,8 @@
                 Z ← 'Three of a kind'
         :ElseIf 2 Pairs VecHand
                 Z ← 'Two pairs'
-        :ElseIf 1 Pairs VecHand
-                Z ← 'Pair'
+        :ElseIf 1 ≡ ⍴ 1 ⌷ P
+                Z ← 'Pair' (1 ⌷ P) (1 ↓ P) 
         :Else
                 Z ← 'High' (⌽ SortedValues VecHand)
         :EndIf
@@ -49,6 +50,20 @@
         Z ← Amount = ⊃ +/ 2∘=∘⍴ ¨ Groups
 ∇
 
+∇ Z ← AllPairs VecHand;Groups;PairBitVector;OtherBitVector;Pairs
+        Groups ← ValuesGrouped VecHand
+        PairBitVector ← ⊃ ,/ 2∘=∘⍴ ¨ Groups        
+        OtherBitVector ← ~ PairBitVector
+        :If 0 = + / PairBitVector 
+                Pairs ← ⍬
+        :Else
+                Pairs ← ⊃ Groups[PairBitVector/⍳⍴Groups]
+        :EndIf
+        Others ← ⊃ ,/ Groups[OtherBitVector / ⍳ ⍴ Groups]
+        Z ← Pairs (⌽Others)
+∇
+        
+
 ∇ Z ← ValuesGrouped VecHand
         Values ← SortedValues VecHand
         ⎕ML ← 3
@@ -81,9 +96,10 @@
         Z ,← 0 = 3 SameValue ((1 2) (1 3) (1 4) (1 3))
         Z ,← 1 = 2 Pairs ((1 2) (1 3) (2 2) (2 3))
         Z ,← 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
+        Z ,← (⍬ (3 2 1)) ≡ AllPairs ((1 3) (2 2) (3 3))
         Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
+        Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
-        Z ,← 'Pair'≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
         Z ,← 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ,← 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
