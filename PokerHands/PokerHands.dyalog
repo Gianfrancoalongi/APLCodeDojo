@@ -15,7 +15,7 @@
                 Z ← 'Three of a kind'
         :ElseIf 2 Pairs VecHand
                 Z ← 'Two pairs'
-        :ElseIf 1 ≡ ⍴ 1 ⌷ P
+        :ElseIf 1 = ⊃ ⍴ ⊃ 1⌷P
                 Z ← 'Pair' (1 ⌷ P) (1 ↓ P) 
         :Else
                 Z ← 'High' (⌽ SortedValues VecHand)
@@ -57,7 +57,7 @@
         :If 0 = + / PairBitVector 
                 Pairs ← ⍬
         :Else
-                Pairs ← ⊃ Groups[PairBitVector/⍳⍴Groups]
+                Pairs ← Groups[PairBitVector/⍳⍴Groups]
         :EndIf
         Others ← ⊃ ,/ Groups[OtherBitVector / ⍳ ⍴ Groups]
         Z ← Pairs (⌽Others)
@@ -98,7 +98,8 @@
         Z ,← 0 = 2 Pairs ((1 2) (1 3) (1 4) (2 2))
         Z ,← (⍬ (3 2 1)) ≡ AllPairs ((1 3) (2 2) (3 3))
         Z ,← (⍬ (2 1 1 1 1)) ≡ AllPairs ((1 1) (1 2) (1 3) (1 4) (2 1))
-        Z ,← ((2 2) (1 1 1)) ≡ AllPairs ((1 2) (2 1) (1 3) (1 4) (2 2))
+        Z ,← ((,⊂(2 2)) (1 1 1)) ≡ AllPairs ((1 2) (1 1) (1 3) (2 4) (2 2))
+        Z ,← (((1 1) (2 2)) (4,⍬)) ≡ AllPairs ((1 2) (2 1) (1 3) (4 4) (2 2))
         Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
