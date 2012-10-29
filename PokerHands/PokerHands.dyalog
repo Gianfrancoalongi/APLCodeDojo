@@ -16,7 +16,7 @@
         :ElseIf 2 Pairs VecHand
                 Z ← 'Two pairs'
         :ElseIf 1 = ⊃ ⍴ ⊃ 1⌷P
-                Z ← 'Pair' (1 ⌷ P) (1 ↓ P) 
+                Z ← 'Pair' (⊃ 1 ↑ ⊃ ⊃ 1 ⌷ P) ( ⊃ 1 ↓ P) 
         :Else
                 Z ← 'High' (⌽ SortedValues VecHand)
         :EndIf
@@ -100,6 +100,7 @@
         Z ,← (⍬ (2 1 1 1 1)) ≡ AllPairs ((1 1) (1 2) (1 3) (1 4) (2 1))
         Z ,← ((,⊂(2 2)) (1 1 1)) ≡ AllPairs ((1 2) (1 1) (1 3) (2 4) (2 2))
         Z ,← (((1 1) (2 2)) (4,⍬)) ≡ AllPairs ((1 2) (2 1) (1 3) (4 4) (2 2))
+        Z ,← ((,⊂(1 1)) (10 4 3)) ≡ AllPairs ((1 1) (10 2) (1 3) (4 2) (3 2))
         Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
