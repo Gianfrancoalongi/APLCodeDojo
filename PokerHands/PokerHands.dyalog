@@ -103,6 +103,7 @@
         Z ,← ((,⊂(1 1)) (10 4 3)) ≡ AllPairs ((1 1) (10 2) (1 3) (4 2) (3 2))
         Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
+        Z ,← 'Pair' 14 (4 3 2) ≡ Score 'AH' '2H' '3D' '4C' 'AS'
         Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
         Z ,← 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
         Z ,← 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
