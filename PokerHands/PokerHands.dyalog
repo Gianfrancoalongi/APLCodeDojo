@@ -13,8 +13,8 @@
                 Z ← 'Straight'
         :ElseIf 3 SameValue VecHand
                 Z ← 'Three of a kind'
-        :ElseIf 2 Pairs VecHand
-                Z ← 'Two pairs'
+        :ElseIf 2 = ⊃ ⍴ ⊃ 1⌷P
+                Z ← 'Two pairs' (⊃ 1 ⌷ P) (⊃ ⊃ 1 ↓ P)
         :ElseIf 1 = ⊃ ⍴ ⊃ 1⌷P
                 Z ← 'Pair' (⊃ 1 ↑ ⊃ ⊃ 1 ⌷ P) ( ⊃ 1 ↓ P) 
         :Else
@@ -60,7 +60,7 @@
                 Pairs ← Groups[PairBitVector/⍳⍴Groups]
         :EndIf
         Others ← ⊃ ,/ Groups[OtherBitVector / ⍳ ⍴ Groups]
-        Z ← Pairs (⌽Others)
+        Z ← (⌽Pairs) (⌽Others)
 ∇
         
 
@@ -99,12 +99,12 @@
         Z ,← (⍬ (3 2 1)) ≡ AllPairs ((1 3) (2 2) (3 3))
         Z ,← (⍬ (2 1 1 1 1)) ≡ AllPairs ((1 1) (1 2) (1 3) (1 4) (2 1))
         Z ,← ((,⊂(2 2)) (1 1 1)) ≡ AllPairs ((1 2) (1 1) (1 3) (2 4) (2 2))
-        Z ,← (((1 1) (2 2)) (4,⍬)) ≡ AllPairs ((1 2) (2 1) (1 3) (4 4) (2 2))
+        Z ,← (((2 2) (1 1)) (4,⍬)) ≡ AllPairs ((1 2) (2 1) (1 3) (4 4) (2 2))
         Z ,← ((,⊂(1 1)) (10 4 3)) ≡ AllPairs ((1 1) (10 2) (1 3) (4 2) (3 2))
         Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
         Z ,← 'Pair' 14 (4 3 2) ≡ Score 'AH' '2H' '3D' '4C' 'AS'
-        Z ,← 'Two pairs' ≡ Score '2H' '2C' '3D' '3S' 'TC'
+        Z ,← 'Two pairs' ((3 3) (2 2)) 10 ≡ Score '2H' '2C' '3D' '3S' 'TC'
         Z ,← 'Straight Flush' ≡ Score '2H' '3H' '4H' '5H' '6H'
         Z ,← 'Four of a kind' ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ,← 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
