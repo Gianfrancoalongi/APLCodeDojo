@@ -8,8 +8,14 @@
             :If Ladder VecHand ∧ SameColor VecHand
                     Z ← 'Straight Flush' (⊃ ⊃ 1 ⌷ G)
             :EndIf
-        :ElseIf (4 ∊ ⊃,/ ⍴ ¨ G) ∧ 2 = S            
-            Z ← 'Four of a kind' (⊃ ⊃ G[ (4 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ]) 
+        :ElseIf 2 = S
+            :If (4 ∊ ⊃∘⍴ ¨ G) 
+                    Z ← 'Four of a kind' (⊃ ⊃ G[ (4 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ]) 
+            :ElseIf (2 ∊ ⊃∘⍴ ¨ G) ∧ (3 ∊ ⊃∘⍴ ¨ G) 
+                    Z ← 'Full House' (⊃ ⊃ G[ (3 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ])
+            :EndIf
+        :ElseIf
+            Z ← 0
         :EndIf
 ∇
         
@@ -85,13 +91,12 @@
         Z ,← 0 = Ladder ((2 3) (3 3) (5 3) (8 3) (10 3))
         Z ,← 'Straight Flush' 6 ≡ Score '2H' '3H' '4H' '5H' '6H'        
         Z ,← 'Four of a kind' 2 ≡ Score '2H' '2C' '2D' '2S' '3D'
+        Z ,← 'Full House' 2 ≡ Score '2H' '2H' '2H' 'AS' 'AS'
         ⍝ Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         ⍝ Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         ⍝ Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
         ⍝ Z ,← 'Pair' 14 (4 3 2) ≡ Score 'AH' '2H' '3D' '4C' 'AS'
         ⍝ Z ,← 'Two pairs' ((3 3) (2 2)) 10 ≡ Score '2H' '2C' '3D' '3S' 'TC'
-        ⍝ Z ,← 'Three of a kind' (2 2 2) ≡ Score '2H' '2C' '2D' '3S' '1D'
-       
-        ⍝ Z ,← 'Full House' ≡ Score '2H' '2H' '2H' 'AS' 'AS'
+        ⍝ Z ,← 'Three of a kind' 2 ≡ Score '2H' '2C' '2D' '3S' '1D'
 ∇
 :EndNameSpace
