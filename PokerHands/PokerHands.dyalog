@@ -5,15 +5,17 @@
         G ← ValuesGrouped VecHand
         S ← ⍴ G
         :If 5 = S
-            :If Ladder VecHand ∧ SameColor VecHand
-                    Z ← 'Straight Flush' (⊃ ⊃ 1 ⌷ G)
-            :ElseIf SameColor VecHand
-                    Z ← 'Flush' (⊃,/G)
-            :ElseIf Ladder VecHand
-                    Z ← 'Straight' (⊃⊃1∘⌷ G)
-            :Else
-                    Z ← 'High Card' (⊃,/G)
-            :EndIf
+                :If SameColor VecHand
+                        :If Ladder VecHand                                
+                                Z ← 'Straight Flush' (⊃ ⊃ 1 ⌷ G)
+                        :Else                       
+                                Z ← 'Flush' (⊃,/G)
+                        :EndIf
+                :ElseIf Ladder VecHand
+                        Z ← 'Straight' (⊃⊃1∘⌷ G)
+                :Else
+                        Z ← 'High Card' (⊃,/G)
+                :EndIf
         :ElseIf 2 = S
             :If (4 ∊ ⊃∘⍴ ¨ G) 
                     Z ← 'Four of a kind' (⊃ ⊃ G[ (4 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ]) 
@@ -75,12 +77,8 @@
         Z ,← (14 2) ≡ Card2Vec 'AD'
         Z ,← (10 3) ≡ Card2Vec 'TH'
         Z ,← 1 = Ladder ((1 2) (2 2) (3 2))
-        Z ,← 1 = Ladder ((1 3) (2 2) (3 1))
         Z ,← 1 = Ladder ((2 2) (3 2) (1 2))
-        Z ,← 1 = Ladder ((3 2) (2 2) (1 2))
         Z ,← 0 = Ladder ((1 2) (2 2) (4 2))
-        Z ,← 0 = Ladder ((1 1) (2 2) (4 3))
-        Z ,← 0 = Ladder ((2 3) (3 3) (5 3) (8 3) (10 3))
         Z ,← 'Straight Flush' 6 ≡ Score '2H' '3H' '4H' '5H' '6H'        
         Z ,← 'Four of a kind' 2 ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ,← 'Full House' 2 ≡ Score '2H' '2H' '2H' 'AS' 'AS'
