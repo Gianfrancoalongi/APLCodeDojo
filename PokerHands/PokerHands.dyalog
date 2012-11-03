@@ -11,6 +11,8 @@
                     Z ← 'Flush' (⊃,/G)
             :ElseIf Ladder VecHand
                     Z ← 'Straight' (⊃⊃1∘⌷ G)
+            :Else
+                    Z ← 'High Card' (⊃,/G)
             :EndIf
         :ElseIf 2 = S
             :If (4 ∊ ⊃∘⍴ ¨ G) 
@@ -111,6 +113,7 @@
         Z ,← 'Three of a kind' 3 ≡ Score '2H' '3D' '3C' '3S' '4H'
         Z ,← 'Two Pairs' 3 2 10 ≡ Score '2H' 'TS' '3C' '2D' '3S'
         Z ,← 'Pair' 2 (6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
+        Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
         ⍝ Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         ⍝ Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         ⍝ Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
