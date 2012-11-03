@@ -9,6 +9,8 @@
                     Z ← 'Straight Flush' (⊃ ⊃ 1 ⌷ G)
             :ElseIf SameColor VecHand
                     Z ← 'Flush' (⊃,/G)
+            :ElseIf Ladder VecHand
+                    Z ← 'Straight' (⊃⊃1∘⌷ G)
             :EndIf
         :ElseIf 2 = S
             :If (4 ∊ ⊃∘⍴ ¨ G) 
@@ -95,6 +97,7 @@
         Z ,← 'Four of a kind' 2 ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ,← 'Full House' 2 ≡ Score '2H' '2H' '2H' 'AS' 'AS'
         Z ,← 'Flush' (8 6 5 3 2) ≡ Score '3H' '2H' '6H' '8H' '5H'
+        Z ,← 'Straight' 8 ≡ Score '4H' '5D' '6S' '7C' '8H'
         ⍝ Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         ⍝ Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         ⍝ Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
