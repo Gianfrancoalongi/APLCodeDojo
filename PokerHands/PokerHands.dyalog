@@ -21,6 +21,9 @@
         :ElseIf 3 = S
             :If (3 ∊ ⊃∘⍴ ¨ G)
                     Z ← 'Three of a kind' (⊃ ⊃ G[ (3 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ])
+            :ElseIf (2 2 1) ≡ ⊃∘⍴ ¨ G[⍒ ⊃∘⍴ ¨ G]
+                    G ← G[⍒ ⊃∘⍴ ¨ G]
+                    Z ← 'Two Pairs' (⊃ ⊃ 1∘⌷ G) (⊃ ⊃ 2∘⌷ G) (⊃ ⊃ 3∘⌷ G)
             :EndIf
         :Else
             Z ← 0
@@ -103,6 +106,7 @@
         Z ,← 'Flush' (8 6 5 3 2) ≡ Score '3H' '2H' '6H' '8H' '5H'
         Z ,← 'Straight' 8 ≡ Score '4H' '5D' '6S' '7C' '8H'
         Z ,← 'Three of a kind' 3 ≡ Score '2H' '3D' '3C' '3S' '4H'
+        Z ,← 'Two Pairs' 3 2 10 ≡ Score '2H' 'TS' '3C' '2D' '3S'
         ⍝ Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         ⍝ Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         ⍝ Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
