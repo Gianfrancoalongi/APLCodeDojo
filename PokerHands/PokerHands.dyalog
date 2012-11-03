@@ -53,30 +53,6 @@
         Z ← (Rank Suite)
 ∇
 
-∇ Z ← Amount SameValue VecHand;Groups
-        Groups ← ValuesGrouped VecHand
-        Z ← ⊃ ∨ / Amount∘=∘⍴ ¨ Groups         
-∇
-
-∇ Z ← Amount Pairs VecHand;Groups
-        Groups ← ValuesGrouped VecHand
-        Z ← Amount = ⊃ +/ 2∘=∘⍴ ¨ Groups
-∇
-
-∇ Z ← AllPairs VecHand;Groups;PairBitVector;OtherBitVector;Pairs
-        Groups ← ValuesGrouped VecHand
-        PairBitVector ← ⊃ ,/ 2∘=∘⍴ ¨ Groups        
-        OtherBitVector ← ~ PairBitVector
-        :If 0 = + / PairBitVector 
-                Pairs ← ⍬
-        :Else
-                Pairs ← Groups[PairBitVector/⍳⍴Groups]
-        :EndIf
-        Others ← ⊃ ,/ Groups[OtherBitVector / ⍳ ⍴ Groups]
-        Z ← (⌽Pairs) (⌽Others)
-∇
-        
-
 ∇ Z ← ValuesGrouped VecHand
         Values ← SortedValues VecHand
         ⎕ML ← 3
@@ -114,11 +90,5 @@
         Z ,← 'Two Pairs' 3 2 10 ≡ Score '2H' 'TS' '3C' '2D' '3S'
         Z ,← 'Pair' 2 (6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
         Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
-        ⍝ Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
-        ⍝ Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
-        ⍝ Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
-        ⍝ Z ,← 'Pair' 14 (4 3 2) ≡ Score 'AH' '2H' '3D' '4C' 'AS'
-        ⍝ Z ,← 'Two pairs' ((3 3) (2 2)) 10 ≡ Score '2H' '2C' '3D' '3S' 'TC'
-        ⍝ Z ,← 'Three of a kind' 2 ≡ Score '2H' '2C' '2D' '3S' '1D'
 ∇
 :EndNameSpace
