@@ -1,4 +1,10 @@
 :NameSpace Poker
+
+∇ Z ← LeftScore Compare RightScore
+        :If LeftScore ≡ RightScore
+                Z ← 1       
+        :EndIf
+∇
         
 ∇ Z ← Score Hand;VecHand;P
         VecHand ← Card2Vec ¨ Hand
@@ -32,8 +38,6 @@
         :ElseIf 4 = S
             G ← G[⍒ ⊃∘⍴ ¨ G]
             Z ← 'Pair' (⊃ ⊃ 1 ↑ G) (⊃,/ 1 ↓ G)
-        :Else
-            Z ← 0
         :EndIf
 ∇
         
@@ -88,5 +92,6 @@
         Z ,← 'Two Pairs' 3 2 10 ≡ Score '2H' 'TS' '3C' '2D' '3S'
         Z ,← 'Pair' 2 (6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
         Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
+        Z ,← 1 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 6)
 ∇
 :EndNameSpace
