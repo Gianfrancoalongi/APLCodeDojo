@@ -7,6 +7,8 @@
         :If 5 = S
             :If Ladder VecHand ∧ SameColor VecHand
                     Z ← 'Straight Flush' (⊃ ⊃ 1 ⌷ G)
+            :ElseIf SameColor VecHand
+                    Z ← 'Flush' (⊃,/G)
             :EndIf
         :ElseIf 2 = S
             :If (4 ∊ ⊃∘⍴ ¨ G) 
@@ -14,7 +16,7 @@
             :ElseIf (2 ∊ ⊃∘⍴ ¨ G) ∧ (3 ∊ ⊃∘⍴ ¨ G) 
                     Z ← 'Full House' (⊃ ⊃ G[ (3 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ])
             :EndIf
-        :ElseIf
+        :Else
             Z ← 0
         :EndIf
 ∇
@@ -92,6 +94,7 @@
         Z ,← 'Straight Flush' 6 ≡ Score '2H' '3H' '4H' '5H' '6H'        
         Z ,← 'Four of a kind' 2 ≡ Score '2H' '2C' '2D' '2S' '3D'
         Z ,← 'Full House' 2 ≡ Score '2H' '2H' '2H' 'AS' 'AS'
+        Z ,← 'Flush' (8 6 5 3 2) ≡ Score '3H' '2H' '6H' '8H' '5H'
         ⍝ Z ,← 'Straight' ≡ Score '2H' '3H' '5H' '8H' '2H'
         ⍝ Z ,← 'High' (13 11 10 4 2) ≡ Score '2H' 'KC' 'TS' 'JD' '4C'
         ⍝ Z ,← 'Pair' 2 (13 10 3) ≡ Score '2H' '2H' '3D' 'TC' 'KS'
