@@ -10,7 +10,7 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
                 LR ← Rank 1∘⌷ LeftScore
                 RR ← Rank 1∘⌷ RightScore
                 :If LR = RR           
-                        Scores ← 2∘⌷ ¨ LeftScore RightScore
+                        Scores ← 1∘↓ ¨ LeftScore RightScore
                         Z ← 1 + Scores ⍳ ⌈/Scores
                 :Else
                         Z ← 1 + LR RR ⍳ LR ⌈ RR
@@ -130,5 +130,6 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 2 ≡ ('Two Pairs' 3 3 10) Compare ('Two Pairs' 3 2 10)
         Z ,← 2 ≡ ('Two Pairs' 3 2 11) Compare ('Two Pairs' 3 2 10)
         Z ,← 3 ≡ ('Two Pairs' 3 2 10) Compare ('Two Pairs' 4 2 10)
+        Z ,← 3 ≡ ('Two Pairs' 3 2 10) Compare ('Two Pairs' 3 3 10)
 ∇
 :EndNameSpace
