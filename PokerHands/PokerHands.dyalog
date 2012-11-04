@@ -1,9 +1,17 @@
 :NameSpace Poker
 
+
+Rank ← { 'Straight Flush' 'Four of a kind' 'Full House' 'Flush' 'Straight' 'Three of a kind' 'Two Pairs' 'Pair' 'High Card' ⍳ ⍵ }
+
 ∇ Z ← LeftScore Compare RightScore
         :If LeftScore ≡ RightScore
                 Z ← 1       
+        :Else
+                LR ← Rank ⊂ 1 ↑ LeftScore
+                RR ← Rank ⊂ 1 ↑ RightScore
+                Z ← 1 + LR RR ⍳ LR ⌈ RR
         :EndIf
+                
 ∇
         
 ∇ Z ← Score Hand;VecHand;P
@@ -93,5 +101,6 @@
         Z ,← 'Pair' 2 (6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
         Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
         Z ,← 1 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 6)
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 2)
 ∇
 :EndNameSpace
