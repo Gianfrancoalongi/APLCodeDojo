@@ -3,13 +3,18 @@
 
 Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flush'  'Full House'  'Four of a kind'  'Straight Flush' ⍳ ⍵ }
 
-∇ Z ← LeftScore Compare RightScore
+∇ Z ← LeftScore Compare RightScore;LR;RR;Scores
         :If LeftScore ≡ RightScore
                 Z ← 1       
         :Else
                 LR ← Rank 1∘⌷ LeftScore
                 RR ← Rank 1∘⌷ RightScore
-                Z ← 1 + LR RR ⍳ LR ⌈ RR
+                :If LR = RR           
+                        Scores ← 2∘⌷ ¨ LeftScore RightScore
+                        Z ← 1 + Scores ⍳ ⌈/Scores
+                :Else
+                        Z ← 1 + LR RR ⍳ LR ⌈ RR
+                :EndIf
         :EndIf
                 
 ∇
@@ -104,5 +109,6 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 2)
         Z ,← 3 ≡ ('Four of a kind' 2) Compare ('Straight Flush' 6)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 5)
+        Z ,← 3 ≡ ('Straight Flush' 5) Compare ('Straight Flush' 6)
 ∇
 :EndNameSpace
