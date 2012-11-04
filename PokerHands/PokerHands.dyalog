@@ -1,14 +1,14 @@
 :NameSpace Poker
 
 
-Rank ← { 'Straight Flush' 'Four of a kind' 'Full House' 'Flush' 'Straight' 'Three of a kind' 'Two Pairs' 'Pair' 'High Card' ⍳ ⍵ }
+Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flush'  'Full House'  'Four of a kind'  'Straight Flush' ⍳ ⍵ }
 
 ∇ Z ← LeftScore Compare RightScore
         :If LeftScore ≡ RightScore
                 Z ← 1       
         :Else
-                LR ← Rank ⊂ 1 ↑ LeftScore
-                RR ← Rank ⊂ 1 ↑ RightScore
+                LR ← Rank 1∘⌷ LeftScore
+                RR ← Rank 1∘⌷ RightScore
                 Z ← 1 + LR RR ⍳ LR ⌈ RR
         :EndIf
                 
@@ -102,5 +102,6 @@ Rank ← { 'Straight Flush' 'Four of a kind' 'Full House' 'Flush' 'Straight' 'Th
         Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
         Z ,← 1 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 6)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 2)
+        Z ,← 3 ≡ ('Four of a kind' 2) Compare ('Straight Flush' 6)
 ∇
 :EndNameSpace
