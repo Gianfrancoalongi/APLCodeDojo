@@ -124,5 +124,6 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 3 ≡ ('Straight' 8) Compare ('Straight' 9)
         Z ,← 1 ≡ ('Three of a kind' 3) Compare ('Three of a kind' 3)
         Z ,← 2 ≡ ('Three of a kind' 3) Compare ('Three of a kind' 2)
+        Z ,← 3 ≡ ('Three of a kind' 2) Compare ('Three of a kind' 3)
 ∇
 :EndNameSpace
