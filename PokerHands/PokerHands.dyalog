@@ -138,5 +138,6 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 2 ≡ ('Pair' 2 (6 6 4)) Compare ('Pair' 2 (6 5 4))
         Z ,← 2 ≡ ('Pair' 2 (6 5 5)) Compare ('Pair' 2 (6 5 4))
         Z ,← 3 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 3 (6 5 4))
+        Z ,← 3 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 2 (7 5 4))
 ∇
 :EndNameSpace
