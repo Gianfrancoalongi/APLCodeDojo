@@ -150,7 +150,13 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 9 4 3))
         Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 5 3))
         Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 4 4))
-        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 2)
-        Z ,← 3 ≡ ('Four of a kind' 2) Compare ('Straight Flush' 6)        
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 7)
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Full House' 7)
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Flush' (14 13 12 11 10))
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Straight' 7)
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Three of a kind' 7)
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Two Pairs' 8 7 6)
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Pair' 7 (5 4 3))
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('High Card' (7 5 4 3 2))
 ∇
 :EndNameSpace
