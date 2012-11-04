@@ -117,5 +117,6 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 2 ≡ ('Full House' 3) Compare ('Full House' 2)
         Z ,← 3 ≡ ('Full House' 2) Compare ('Full House' 3)
         Z ,← 1 ≡ ('Flush' (8 6 5 3 2)) Compare ('Flush' (8 6 5 3 2))
+        Z ,← 2 ≡ ('Flush' (9 6 5 3 2)) Compare ('Flush' (8 6 5 3 2))
 ∇
 :EndNameSpace
