@@ -106,8 +106,6 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 'Pair' 2 (6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
         Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
         Z ,← 1 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 6)
-        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 2)
-        Z ,← 3 ≡ ('Four of a kind' 2) Compare ('Straight Flush' 6)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 5)
         Z ,← 3 ≡ ('Straight Flush' 5) Compare ('Straight Flush' 6)
         Z ,← 1 ≡ ('Four of a kind' 2) Compare ('Four of a kind' 2)
@@ -152,5 +150,7 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 9 4 3))
         Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 5 3))
         Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 4 4))
+        Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 2)
+        Z ,← 3 ≡ ('Four of a kind' 2) Compare ('Straight Flush' 6)        
 ∇
 :EndNameSpace
