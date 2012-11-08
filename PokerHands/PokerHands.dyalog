@@ -1,17 +1,22 @@
 :NameSpace Poker
 
+∇ Z ← WhiteHand Versus BlackHand
+        Z ← ⊃ 'Tie' 'White wins' 'Black wins' [ (Score WhiteHand) Compare (Score BlackHand) ]
+∇
+
 
 Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flush'  'Full House'  'Four of a kind'  'Straight Flush' ⍳ ⍵ }
 
-∇ Z ← LeftScore Compare RightScore;LR;RR;Scores
+∇ Z ← LeftScore Compare RightScore;LR;RR;Scores;Diff
         :If LeftScore ≡ RightScore
                 Z ← 1       
         :Else
                 LR ← Rank 1∘⌷ LeftScore
                 RR ← Rank 1∘⌷ RightScore
-                :If LR = RR           
-                        Scores ← 1∘↓ ¨ LeftScore RightScore
-                        Z ← 1 + Scores ⍳ ⌈/Scores
+                :If LR = RR     
+                        Diff ← ⊃ -/ 1∘↓ ¨ LeftScore RightScore
+                        Diff ← (1 ⍳ ⍨ 0 < Diff) (1 ⍳ ⍨ 0 > Diff)
+                        Z ← 1 + Diff ⍳ ⌊ / Diff
                 :Else
                         Z ← 1 + LR RR ⍳ LR ⌈ RR
                 :EndIf
@@ -19,7 +24,7 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
                 
 ∇
         
-∇ Z ← Score Hand;VecHand;P
+∇ Z ← Score Hand;VecHand;G;S
         VecHand ← Card2Vec ¨ Hand
         G ← ValuesGrouped VecHand
         S ← ⍴ G
@@ -32,7 +37,7 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
                         :EndIf
                 :ElseIf Ladder VecHand
                         Z ← 'Straight' (⊃⊃1∘⌷ G)
-                :Else
+                :Else                        
                         Z ← 'High Card' (⊃,/G)
                 :EndIf
         :ElseIf 2 = S
@@ -46,11 +51,11 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
                     Z ← 'Three of a kind' (⊃ ⊃ G[ (3 = ⊃∘⍴ ¨ G) / ⍳ ⍴ G ])
             :ElseIf (2 2 1) ≡ ⊃∘⍴ ¨ G[⍒ ⊃∘⍴ ¨ G]
                     G ← G[⍒ ⊃∘⍴ ¨ G]
-                    Z ← 'Two Pairs' (⊃ ⊃ 1∘⌷ G) (⊃ ⊃ 2∘⌷ G) (⊃ ⊃ 3∘⌷ G)
+                    Z ← 'Two Pairs' ( (⊃ ⊃ 1∘⌷ G) (⊃ ⊃ 2∘⌷ G) (⊃ ⊃ 3∘⌷ G) )
             :EndIf
         :ElseIf 4 = S
             G ← G[⍒ ⊃∘⍴ ¨ G]
-            Z ← 'Pair' (⊃ ⊃ 1 ↑ G) (⊃,/ 1 ↓ G)
+            Z ← 'Pair' ( (⊃ ⊃ 1 ↑ G),(⊃,/ 1 ↓ G) )
         :EndIf
 ∇
         
@@ -72,7 +77,7 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ← (Rank Suite)
 ∇
 
-∇ Z ← ValuesGrouped VecHand
+∇ Z ← ValuesGrouped VecHand;Values
         Values ← SortedValues VecHand
         ⎕ML ← 3
         Z ← Values ⊂ Values
@@ -102,8 +107,8 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 'Flush' (8 6 5 3 2) ≡ Score '3H' '2H' '6H' '8H' '5H'
         Z ,← 'Straight' 8 ≡ Score '4H' '5D' '6S' '7C' '8H'
         Z ,← 'Three of a kind' 3 ≡ Score '2H' '3D' '3C' '3S' '4H'
-        Z ,← 'Two Pairs' 3 2 10 ≡ Score '2H' 'TS' '3C' '2D' '3S'
-        Z ,← 'Pair' 2 (6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
+        Z ,← 'Two Pairs' (3 2 10) ≡ Score '2H' 'TS' '3C' '2D' '3S'
+        Z ,← 'Pair' (2 6 5 4) ≡ Score '2H' '6D' '2C' '4C' '5S'
         Z ,← 'High Card' (10 9 8 4 3) ≡ Score '8S' '4C' 'TD' '9S' '3S'
         Z ,← 1 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 6)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Straight Flush' 5)
@@ -114,9 +119,9 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 1 ≡ ('Full House' 2) Compare ('Full House' 2)
         Z ,← 2 ≡ ('Full House' 3) Compare ('Full House' 2)
         Z ,← 3 ≡ ('Full House' 2) Compare ('Full House' 3)
-        Z ,← 1 ≡ ('Flush' (8 6 5 3 2)) Compare ('Flush' (8 6 5 3 2))
-        Z ,← 2 ≡ ('Flush' (9 6 5 3 2)) Compare ('Flush' (8 6 5 3 2))
-        Z ,← 3 ≡ ('Flush' (8 6 5 3 2)) Compare ('Flush' (9 6 5 3 2))
+        Z ,← 1 ≡ ('Flush' 8 6 5 3 2) Compare ('Flush' 8 6 5 3 2)
+        Z ,← 2 ≡ ('Flush' 9 6 5 3 2) Compare ('Flush' 8 6 5 3 2)
+        Z ,← 3 ≡ ('Flush' 8 6 5 3 2) Compare ('Flush' 9 6 5 3 2)
         Z ,← 1 ≡ ('Straight' 8) Compare ('Straight' 8)
         Z ,← 2 ≡ ('Straight' 9) Compare ('Straight' 8)
         Z ,← 3 ≡ ('Straight' 8) Compare ('Straight' 9)
@@ -130,26 +135,26 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 3 ≡ ('Two Pairs' 3 2 10) Compare ('Two Pairs' 4 2 10)
         Z ,← 3 ≡ ('Two Pairs' 3 2 10) Compare ('Two Pairs' 3 3 10)
         Z ,← 3 ≡ ('Two Pairs' 3 2 10) Compare ('Two Pairs' 3 2 11)
-        Z ,← 1 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 2 (6 5 4))
-        Z ,← 2 ≡ ('Pair' 3 (6 5 4)) Compare ('Pair' 2 (6 5 4))
-        Z ,← 2 ≡ ('Pair' 2 (7 5 4)) Compare ('Pair' 2 (6 5 4))
-        Z ,← 2 ≡ ('Pair' 2 (6 6 4)) Compare ('Pair' 2 (6 5 4))
-        Z ,← 2 ≡ ('Pair' 2 (6 5 5)) Compare ('Pair' 2 (6 5 4))
-        Z ,← 3 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 3 (6 5 4))
-        Z ,← 3 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 2 (7 5 4))
-        Z ,← 3 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 2 (6 6 4))
-        Z ,← 3 ≡ ('Pair' 2 (6 5 4)) Compare ('Pair' 2 (6 5 5))
-        Z ,← 1 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 4 3))
-        Z ,← 2 ≡ ('High Card' (11 9 8 4 3)) Compare ('High Card' (10 9 8 4 3))
-        Z ,← 2 ≡ ('High Card' (10 10 8 4 3)) Compare ('High Card' (10 9 8 4 3))
-        Z ,← 2 ≡ ('High Card' (10 9 9 4 3)) Compare ('High Card' (10 9 8 4 3))
-        Z ,← 2 ≡ ('High Card' (10 9 8 5 3)) Compare ('High Card' (10 9 8 4 3))
-        Z ,← 2 ≡ ('High Card' (10 9 8 4 4)) Compare ('High Card' (10 9 8 4 3))
-        Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (11 9 8 4 3))
-        Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 10 8 4 3))
-        Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 9 4 3))
-        Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 5 3))
-        Z ,← 3 ≡ ('High Card' (10 9 8 4 3)) Compare ('High Card' (10 9 8 4 4))
+        Z ,← 1 ≡ ('Pair' 2 6 5 4) Compare ('Pair' 2 6 5 4)
+        Z ,← 2 ≡ ('Pair' 3 6 5 4) Compare ('Pair' 2 6 5 4)
+        Z ,← 2 ≡ ('Pair' 2 7 5 4) Compare ('Pair' 2 6 5 4)
+        Z ,← 2 ≡ ('Pair' 2 6 6 4) Compare ('Pair' 2 6 5 4)
+        Z ,← 2 ≡ ('Pair' 2 6 5 5) Compare ('Pair' 2 6 5 4)
+        Z ,← 3 ≡ ('Pair' 2 6 5 4) Compare ('Pair' 3 6 5 4)
+        Z ,← 3 ≡ ('Pair' 2 6 5 4) Compare ('Pair' 2 7 5 4)
+        Z ,← 3 ≡ ('Pair' 2 6 5 4) Compare ('Pair' 2 6 6 4)
+        Z ,← 3 ≡ ('Pair' 2 6 5 4) Compare ('Pair' 2 6 5 5)
+        Z ,← 1 ≡ ('High Card' 10 9 8 4 3) Compare ('High Card' 10 9 8 4 3)
+        Z ,← 2 ≡ ('High Card' 11 9 8 4 3) Compare ('High Card' 10 9 8 4 3)
+        Z ,← 2 ≡ ('High Card' 10 10 8 4 3) Compare ('High Card' 10 9 8 4 3)
+        Z ,← 2 ≡ ('High Card' 10 9 9 4 3) Compare ('High Card' 10 9 8 4 3)
+        Z ,← 2 ≡ ('High Card' 10 9 8 5 3) Compare ('High Card' 10 9 8 4 3)
+        Z ,← 2 ≡ ('High Card' 10 9 8 4 4) Compare ('High Card' 10 9 8 4 3)
+        Z ,← 3 ≡ ('High Card' 10 9 8 4 3) Compare ('High Card' 11 9 8 4 3)
+        Z ,← 3 ≡ ('High Card' 10 9 8 4 3) Compare ('High Card' 10 10 8 4 3)
+        Z ,← 3 ≡ ('High Card' 10 9 8 4 3) Compare ('High Card' 10 9 9 4 3)
+        Z ,← 3 ≡ ('High Card' 10 9 8 4 3) Compare ('High Card' 10 9 8 5 3)
+        Z ,← 3 ≡ ('High Card' 10 9 8 4 3) Compare ('High Card' 10 9 8 4 4)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Four of a kind' 7)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Full House' 7)
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('Flush' (14 13 12 11 10))
@@ -160,37 +165,38 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 2 ≡ ('Straight Flush' 6) Compare ('High Card' (7 5 4 3 2))
         Z ,← 3 ≡ ('Four of a kind' 7) Compare ('Straight Flush' 6)
         Z ,← 3 ≡ ('Full House' 7) Compare ('Straight Flush' 6) 
-        Z ,← 3 ≡ ('Flush' (14 13 12 11 10)) Compare ('Straight Flush' 6) 
+        Z ,← 3 ≡ ('Flush' 14 13 12 11 10) Compare ('Straight Flush' 6) 
         Z ,← 3 ≡ ('Straight' 7) Compare ('Straight Flush' 6) 
         Z ,← 3 ≡ ('Three of a kind' 7) Compare ('Straight Flush' 6) 
         Z ,← 3 ≡ ('Two Pairs' 8 7 6) Compare ('Straight Flush' 6) 
-        Z ,← 3 ≡ ('Pair' 7 (5 4 3)) Compare ('Straight Flush' 6) 
-        Z ,← 3 ≡ ('High Card' (7 5 4 3 2)) Compare ('Straight Flush' 6) 
+        Z ,← 3 ≡ ('Pair' 7 5 4 3) Compare ('Straight Flush' 6) 
+        Z ,← 3 ≡ ('High Card' 7 5 4 3 2) Compare ('Straight Flush' 6)
         Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Full House' 7)
-        Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Flush' (14 13 12 11 10))
+        Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Flush' 14 13 12 11 10)
         Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Straight' 7)
         Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Three of a kind' 7)
         Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Two Pairs' 8 7 6)
-        Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Pair' 7 (5 4 3))
-        Z ,← 2 ≡ ('Four of a kind' 6) Compare ('High Card' (7 5 4 3 2))
+        Z ,← 2 ≡ ('Four of a kind' 6) Compare ('Pair' 7 5 4 3)
+        Z ,← 2 ≡ ('Four of a kind' 6) Compare ('High Card' 7 5 4 3 2)
         Z ,← 3 ≡ ('Full House' 7) Compare ('Four of a kind' 6)
         Z ,← 3 ≡ ('Flush' (14 13 12 11 10)) Compare ('Four of a kind' 6)
         Z ,← 3 ≡ ('Straight' 7) Compare ('Four of a kind' 6)
         Z ,← 3 ≡ ('Three of a kind' 7) Compare ('Four of a kind' 6)
         Z ,← 3 ≡ ('Two Pairs' 8 7 6) Compare ('Four of a kind' 6)
-        Z ,← 3 ≡ ('Pair' 7 (5 4 3)) Compare ('Four of a kind' 6)
-        Z ,← 3 ≡ ('High Card' (7 5 4 3 2)) Compare ('Four of a kind' 6)
-        Z ,← 2 ≡ ('Full House' 7) Compare ('Flush' (14 13 12 11 10))
+        Z ,← 3 ≡ ('Pair' 7 5 4 3) Compare ('Four of a kind' 6)
+        Z ,← 3 ≡ ('High Card' 7 5 4 3 2) Compare ('Four of a kind' 6)
+        Z ,← 2 ≡ ('Full House' 7) Compare ('Flush' 14 13 12 11 10)
         Z ,← 2 ≡ ('Full House' 7) Compare ('Straight' 7)
         Z ,← 2 ≡ ('Full House' 7) Compare ('Three of a kind' 7)
         Z ,← 2 ≡ ('Full House' 7) Compare ('Two Pairs' 8 7 6)
-        Z ,← 2 ≡ ('Full House' 7) Compare ('Pair' 7 (5 4 3))
-        Z ,← 2 ≡ ('Full House' 7) Compare ('High Card' (7 5 4 3 2))
-        Z ,← 3 ≡ ('Flush' (14 13 12 11 10)) Compare ('Full House' 7)
+        Z ,← 2 ≡ ('Full House' 7) Compare ('Pair' 7 5 4 3)
+        Z ,← 2 ≡ ('Full House' 7) Compare ('High Card' 7 5 4 3 2)
+        Z ,← 3 ≡ ('Flush' 14 13 12 11 10) Compare ('Full House' 7)
         Z ,← 3 ≡ ('Straight' 7) Compare ('Full House' 7)
         Z ,← 3 ≡ ('Three of a kind' 7) Compare ('Full House' 7)
         Z ,← 3 ≡ ('Two Pairs' 8 7 6) Compare ('Full House' 7)
-        Z ,← 3 ≡ ('Pair' 7 (5 4 3)) Compare ('Full House' 7)
-        Z ,← 3 ≡ ('High Card' (7 5 4 3 2)) Compare ('Full House' 7)        
+        Z ,← 3 ≡ ('Pair' 7 5 4 3) Compare ('Full House' 7)
+        Z ,← 3 ≡ ('High Card' 7 5 4 3 2) Compare ('Full House' 7)
+        Z ,← 'White wins' ≡ ('2C' '3H' '4S' '8C' 'AH') Versus ('2H' '3D' '5S' '9C' 'KD')
  ∇
 :EndNameSpace
