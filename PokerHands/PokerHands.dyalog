@@ -15,6 +15,9 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
                 RR ← Rank 1∘⌷ RightScore
                 :If LR = RR     
                         Diff ← ⊃ -/ 1∘↓ ¨ LeftScore RightScore
+                        :If 2=|≡Diff
+                                Diff ← ⊃ Diff
+                        :EndIf                                
                         Diff ← (1 ⍳ ⍨ 0 < Diff) (1 ⍳ ⍨ 0 > Diff)
                         Z ← 1 + Diff ⍳ ⌊ / Diff
                 :Else
@@ -198,5 +201,7 @@ Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flu
         Z ,← 3 ≡ ('Pair' 7 5 4 3) Compare ('Full House' 7)
         Z ,← 3 ≡ ('High Card' 7 5 4 3 2) Compare ('Full House' 7)
         Z ,← 'White wins' ≡ ('2C' '3H' '4S' '8C' 'AH') Versus ('2H' '3D' '5S' '9C' 'KD')
+        Z ,← 'Black wins' ≡ ('2S' '8S' 'AS' 'QS' '3S') Versus ('2H' '4S' '4C' '2D' '4H')
+        Z ,← 'Black wins' ≡ ('2C' '3H' '4S' '8C' 'KH') Versus ('2H' '3D' '5S' '9C' 'KD')
  ∇
 :EndNameSpace
