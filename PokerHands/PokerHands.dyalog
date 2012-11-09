@@ -7,7 +7,7 @@
 
 Rank ← { 'High Card'  'Pair'  'Two Pairs'  'Three of a kind'  'Straight'  'Flush'  'Full House'  'Four of a kind'  'Straight Flush' ⍳ ⍵ }
 
-∇ Z ← LeftScore Compare RightScore;LR;RR;Scores;Diff
+∇ Z ← LeftScore Compare RightScore;LR;RR;Diff
         :If LeftScore ≡ RightScore
                 Z ← 1       
         :Else
